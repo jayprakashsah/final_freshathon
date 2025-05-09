@@ -1,0 +1,74 @@
+<main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 data-i18n="hero-title">Detect Crop Diseases with AI</h1>
+                    <p data-i18n="hero-subtitle">Upload an image or use your camera to identify plant diseases instantly</p>
+                    <div class="cta-buttons">
+                        <button id="webcam-btn" class="btn primary" data-i18n="use-webcam">Use Webcam</button>
+                        <button id="upload-btn" class="btn secondary" data-i18n="upload-image">Upload Image</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="detection-section">
+            <div class="container">
+                <h2 data-i18n="detection-title">Disease Detection</h2>
+                <div class="detection-container">
+                    <div class="input-area">
+                        <div id="webcam-container" class="webcam-box">
+                            <div class="placeholder" data-i18n="webcam-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Webcam feed will appear here</p>
+                            </div>
+                            <div class="webcam-controls" style="display: none;">
+                                <button id="stop-webcam-btn" class="btn danger">
+                                    <i class="fas fa-stop"></i> <span data-i18n="stop-webcam">Stop Camera</span>
+                                </button>
+                                <button id="capture-btn" class="btn secondary">
+                                    <i class="fas fa-camera"></i> <span data-i18n="capture-photo">Capture Photo</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="file-upload-box">
+                            <input type="file" id="file-input" accept="image/*" style="display: none;">
+                            <label for="file-input" class="upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span data-i18n="upload-label">Choose or drag an image</span>
+                            </label>
+                            <div id="image-preview" class="image-preview"></div>
+                            <button id="clear-image-btn" class="btn danger" style="display: none; margin-top: 10px;">
+                                <i class="fas fa-times"></i> <span data-i18n="clear-image">Clear Image</span>
+                            </button>
+                        </div>
+                        <button id="detect-btn" class="btn primary" disabled data-i18n="detect-disease">Detect Disease</button>
+                    </div>
+                    <div class="results-area">
+                        <h3 data-i18n="results-title">Detection Results</h3>
+                        <div id="label-container" class="results-box">
+                            <div class="placeholder" data-i18n="results-placeholder">
+                                <i class="fas fa-microscope"></i>
+                                <p>Results will appear here</p>
+                            </div>
+                        </div>
+                        <div class="disease-info" id="disease-info">
+                            <div class="treatment-section">
+                                <h4 data-i18n="treatment-title">Recommended Treatment</h4>
+                                <div id="treatment-text"></div>
+                                <div class="treatment-details" id="treatment-details"></div>
+                            </div>
+                            <div class="medicine-section">
+                                <h4 data-i18n="medicine-title">Recommended Medicines</h4>
+                                <div id="medicine-info"></div>
+                            </div>
+                            <div class="prevention-section">
+                                <h4 data-i18n="prevention-title">Prevention Tips</h4>
+                                <div id="prevention-info"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
