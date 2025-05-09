@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroVision - Crop Disease Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <span>AgroVision</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="active" data-i18n="home">Home</a>
+                    <a href="#" data-i18n="about">About</a>
+                    <a href="#" data-i18n="diseases">Diseases</a>
+                    <a href="#" data-i18n="contact">Contact</a>
+                    <div class="language-selector">
+                        <select id="language-select">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="np">नेपाली</option>
+                            <option value="bh">भोजपुरी</option>
+                        </select>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 data-i18n="hero-title">Detect Crop Diseases with AI</h1>
+                    <p data-i18n="hero-subtitle">Upload an image or use your camera to identify plant diseases instantly</p>
+                    <div class="cta-buttons">
+                        <button id="webcam-btn" class="btn primary" data-i18n="use-webcam">Use Webcam</button>
+                        <button id="upload-btn" class="btn secondary" data-i18n="upload-image">Upload Image</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="detection-section">
+            <div class="container">
+                <h2 data-i18n="detection-title">Disease Detection</h2>
+                <div class="detection-container">
+                    <div class="input-area">
+                        <div id="webcam-container" class="webcam-box">
+                            <div class="placeholder" data-i18n="webcam-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Webcam feed will appear here</p>
+                            </div>
+                            <div class="webcam-controls" style="display: none;">
+                                <button id="stop-webcam-btn" class="btn danger">
+                                    <i class="fas fa-stop"></i> <span data-i18n="stop-webcam">Stop Camera</span>
+                                </button>
+                                <button id="capture-btn" class="btn secondary">
+                                    <i class="fas fa-camera"></i> <span data-i18n="capture-photo">Capture Photo</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="file-upload-box">
+                            <input type="file" id="file-input" accept="image/*" style="display: none;">
+                            <label for="file-input" class="upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span data-i18n="upload-label">Choose or drag an image</span>
+                            </label>
+                            <div id="image-preview" class="image-preview"></div>
+                            <button id="clear-image-btn" class="btn danger" style="display: none; margin-top: 10px;">
+                                <i class="fas fa-times"></i> <span data-i18n="clear-image">Clear Image</span>
+                            </button>
+                        </div>
+                        <button id="detect-btn" class="btn primary" disabled data-i18n="detect-disease">Detect Disease</button>
+                    </div>
+                    <div class="results-area">
+                        <h3 data-i18n="results-title">Detection Results</h3>
+                        <div id="label-container" class="results-box">
+                            <div class="placeholder" data-i18n="results-placeholder">
+                                <i class="fas fa-microscope"></i>
+                                <p>Results will appear here</p>
+                            </div>
+                        </div>
+                        <div class="disease-info" id="disease-info">
+                            <div class="treatment-section">
+                                <h4 data-i18n="treatment-title">Recommended Treatment</h4>
+                                <div id="treatment-text"></div>
+                                <div class="treatment-details" id="treatment-details"></div>
+                            </div>
+                            <div class="medicine-section">
+                                <h4 data-i18n="medicine-title">Recommended Medicines</h4>
+                                <div id="medicine-info"></div>
+                            </div>
+                            <div class="prevention-section">
+                                <h4 data-i18n="prevention-title">Prevention Tips</h4>
+                                <div id="prevention-info"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-i18n="footer-about">About AgroVision</h3>
+                    <p data-i18n="footer-about-text">AI-powered crop disease detection system helping farmers worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="footer-links">Quick Links</h3>
+                    <ul>
+                        <li><a href="#" data-i18n="home">Home</a></li>
+                        <li><a href="#" data-i18n="about">About</a></li>
+                        <li><a href="#" data-i18n="diseases">Diseases</a></li>
+                        <li><a href="#" data-i18n="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="footer-contact">Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> contact@agrovision.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer-copyright">&copy; 2023 AgroVision. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot and Assistant -->
+    <div class="chatbot-btn" id="chatbot-btn">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <div class="assistant-btn" id="assistant-btn">
+        <i class="fas fa-microphone"></i>
+    </div>
+
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3 data-i18n="chatbot-title">AgroVision Assistant</h3>
+            <button class="close-chatbot" id="close-chatbot">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input-field" placeholder="Type your question..." data-i18n="chatbot-placeholder">
+            <button id="send-chatbot-message"><i class="fas fa-paper-plane"></i></button>
+            <button id="voice-input-btn"><i class="fas fa-microphone"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
